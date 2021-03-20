@@ -1,10 +1,10 @@
 package com.luca.jcoffeeshop.api;
 
 import com.luca.jcoffeeshop.biz.UserService;
-import com.luca.jcoffeeshop.dto.LoginQuery;
+import com.luca.jcoffeeshop.query.LoginQuery;
 import com.luca.jcoffeeshop.dto.LoginUserDTO;
 import com.luca.jcoffeeshop.dto.ResponseResult;
-import com.luca.jcoffeeshop.dto.SignUpDTO;
+import com.luca.jcoffeeshop.query.SignUpQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.validation.annotation.Validated;
@@ -16,17 +16,21 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * 用户模块
+ * todo swagger api doc
+ */
 @RestController
 @RequestMapping("user")
 public class UserController {
 
     @Autowired
-    @Qualifier("standard")
+    @Qualifier("standardUserService")
     private UserService userService;
 
     @PostMapping("sign-up")
-    public ResponseResult signUp(@RequestBody @Validated SignUpDTO signUpDTO) {
-        userService.signUp(signUpDTO);
+    public ResponseResult signUp(@RequestBody @Validated SignUpQuery signUpQuery) {
+        userService.signUp(signUpQuery);
         return new ResponseResult("注册成功", 200);
     }
 

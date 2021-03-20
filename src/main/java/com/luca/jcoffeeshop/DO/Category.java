@@ -1,10 +1,13 @@
 package com.luca.jcoffeeshop.DO;
 
+import lombok.Builder;
+
 import java.util.Date;
 
 /**
  * 商品类目 Data Object
  */
+@Builder
 public class Category {
 
     /**

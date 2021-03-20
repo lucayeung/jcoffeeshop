@@ -1,4 +1,4 @@
-package com.luca.jcoffeeshop.dto;
+package com.luca.jcoffeeshop.query;
 
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor // todo is required?
-public class SignUpDTO {
+public class SignUpQuery {
 
     @NotBlank(message = "用户昵称不能为空")
     @Length(min = 4, max = 16, message = "昵称必须在4-16个字符之间")

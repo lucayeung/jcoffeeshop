@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 import java.util.Map;
 
-@Repository("jdbc")
+@Repository("jdbcUserDao")
 public class JdbcUserDao implements UserDao {
 
     @Autowired

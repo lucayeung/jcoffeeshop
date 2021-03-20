@@ -1,4 +1,4 @@
-package com.luca.jcoffeeshop.dto;
+package com.luca.jcoffeeshop.query;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

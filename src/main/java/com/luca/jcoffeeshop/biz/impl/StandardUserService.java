@@ -3,9 +3,9 @@ package com.luca.jcoffeeshop.biz.impl;
 import com.luca.jcoffeeshop.DO.User;
 import com.luca.jcoffeeshop.biz.UserService;
 import com.luca.jcoffeeshop.dao.UserDao;
-import com.luca.jcoffeeshop.dto.LoginQuery;
+import com.luca.jcoffeeshop.query.LoginQuery;
 import com.luca.jcoffeeshop.dto.LoginUserDTO;
-import com.luca.jcoffeeshop.dto.SignUpDTO;
+import com.luca.jcoffeeshop.query.SignUpQuery;
 import com.luca.jcoffeeshop.error.BizException;
 import com.luca.jcoffeeshop.util.IdUtils;
 import com.luca.jcoffeeshop.util.PasswordUtils;
@@ -13,33 +13,42 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
 
 @Slf4j
-@Service("standard")
+@Service("standardUserService")
 public class StandardUserService implements UserService {
 
     @Autowired
-    @Qualifier("jdbc")
+    @Qualifier("jdbcUserDao")
     private UserDao userDao;
 
     @Value("${password.salt}")
     private String salt;
 
     @Override
-    public void signUp(SignUpDTO signUpDTO) {
+    public void signUp(SignUpQuery signUpQuery) {
         User user = User
                 .builder()
                 .userId(IdUtils.shortUUID())
-                .nickname(signUpDTO.getNickname())
-                .password(convertMd5Password(signUpDTO.getPassword()))
-                .phoneNumber(signUpDTO.getPhoneNumber())
-                .username(signUpDTO.getUsername())
+                .nickname(signUpQuery.getNickname())
+                .password(convertMd5Password(signUpQuery.getPassword()))
+                .phoneNumber(signUpQuery.getPhoneNumber())
+                .username(signUpQuery.getUsername())
                 .build();
-        userDao.saveUser(user);
+
+        try {
+            userDao.saveUser(user);
+        }
+        catch (DuplicateKeyException ex) {
+            String errMsg = "该用户名已存在";
+            log.debug(errMsg);
+            throw new BizException(errMsg);
+        }
     }
 
     @Override
@@ -52,7 +61,7 @@ public class StandardUserService implements UserService {
         catch (EmptyResultDataAccessException ex) {
             String errMsg = "用户名密码错误";
             log.debug(errMsg);
-            throw new BizException(errMsg, ex);
+            throw new BizException(errMsg);
         }
 
         return LoginUserDTO
