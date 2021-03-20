@@ -9,7 +9,9 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository("jdbcCategoryDao")
 public class JdbcCategoryDao implements CategoryDao {
@@ -25,6 +27,9 @@ public class JdbcCategoryDao implements CategoryDao {
                 .categoryId(rs.getString("category_id"))
                 .name(rs.getString("name"))
                 .description(rs.getString("description"))
+                // FIXME(luca): 设置自动默认值
+                .productTypeCount(0)
+                .productCount(0)
                 .build();
         return namedParameterJdbcTemplate.query(sql, rowMapper);
     }
@@ -49,6 +54,12 @@ public class JdbcCategoryDao implements CategoryDao {
 
     @Override
     public void addCategory(Category category) {
-
+        String sql = "insert into t_category(category_id, name, description) " +
+                "values(:categoryId, :name, :description)";
+        Map<String, Object> params = new HashMap<>();
+        params.put("categoryId", category.getCategoryId());
+        params.put("name", category.getName());
+        params.put("description", category.getDescription());
+        namedParameterJdbcTemplate.update(sql, params);
     }
 }
