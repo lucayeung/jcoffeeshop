@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:foo
+    username: sa
+    password:
+
+password:
+    salt: cheeseburger

@@ -1,0 +1,11 @@
+insert into t_category(category_id, name, description) values('hQ5qC8ex3uJzJgwk7FK', '饮品', '咖啡、奶茶、牛奶🥛等');
+insert into t_category(category_id, name, description) values('t93aQfee3c6A0c4t42C', '糕点', '沙琪玛、蔓越莓堡等');
+
+insert into t_product(product_id, name, price, stock, image_urls, description, category_id) values('RLW1hI2CRXsyy4x1Q4f', '抹茶咖啡', 22.00, 99, 'https://picsum.photos/200/300,https://picsum.photos/200/300,https://picsum.photos/200/300', '抹茶搭配香浓咖啡！', 'hQ5qC8ex3uJzJgwk7FK');
+insert into t_product(product_id, name, price, stock, image_urls, description, category_id) values('ieQLGVdTSHhKBTNZ9AD', '红茶咖啡', 20.00, 66, 'https://picsum.photos/200/300,https://picsum.photos/200/300,https://picsum.photos/200/300', '红茶搭配香浓咖啡！', 'hQ5qC8ex3uJzJgwk7FK');
+insert into t_product(product_id, name, price, stock, image_urls, description, category_id) values('YPQKZk0RXsosm4FRjRZ', '芬达', 5.00, 16, 'https://picsum.photos/200/300,https://picsum.photos/200/300,https://picsum.photos/200/300', '廉价瓶装芬达', 'hQ5qC8ex3uJzJgwk7FK');
+insert into t_product(product_id, name, price, stock, image_urls, description, category_id) values('MoqkItvXl1RhwLuEn0M', '肉松面包', 7.00, 10, 'https://picsum.photos/200/300,https://picsum.photos/200/300,https://picsum.photos/200/300', '满满的肉松！', 't93aQfee3c6A0c4t42C');
+insert into t_product(product_id, name, price, stock, image_urls, description, category_id) values('uX8rREjZnFlmIxTTBAn', '紫薯面包', 10.00, 2, 'https://picsum.photos/200/300,https://picsum.photos/200/300,https://picsum.photos/200/300', '刚出炉的香喷喷紫薯哦~', 't93aQfee3c6A0c4t42C');
+
+-- password: Admin123#
+insert into t_user(user_id, nickname, phone_number, username, password) values('MYTkr30TXL0CCxo9gDe', '鲁卡', '13055228822', 'luca', '88db605e4b8f31c14e1bc0be5d191bad');
