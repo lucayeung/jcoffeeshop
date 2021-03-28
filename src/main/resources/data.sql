@@ -6,6 +6,8 @@ insert into t_product(product_id, name, price, stock, image_urls, description, c
 insert into t_product(product_id, name, price, stock, image_urls, description, category_id) values('YPQKZk0RXsosm4FRjRZ', '芬达', 5.00, 16, 'https://picsum.photos/200/300,https://picsum.photos/200/300,https://picsum.photos/200/300', '廉价瓶装芬达', 'hQ5qC8ex3uJzJgwk7FK');
 insert into t_product(product_id, name, price, stock, image_urls, description, category_id) values('MoqkItvXl1RhwLuEn0M', '肉松面包', 7.00, 10, 'https://picsum.photos/200/300,https://picsum.photos/200/300,https://picsum.photos/200/300', '满满的肉松！', 't93aQfee3c6A0c4t42C');
 insert into t_product(product_id, name, price, stock, image_urls, description, category_id) values('uX8rREjZnFlmIxTTBAn', '紫薯面包', 10.00, 2, 'https://picsum.photos/200/300,https://picsum.photos/200/300,https://picsum.photos/200/300', '刚出炉的香喷喷紫薯哦~', 't93aQfee3c6A0c4t42C');
+insert into t_product(product_id, name, price, stock, image_urls, description, category_id) values('uFlmIxTTBAnX8rREjZn', '包子', 2.00, 22, 'https://picsum.photos/200/300,https://picsum.photos/200/300,https://picsum.photos/200/300', '刚出炉的香喷喷包子哦~', 't93aQfee3c6A0c4t42C');
+insert into t_product(product_id, name, price, stock, image_urls, description, category_id) values('nFlmIuX8rREjZxTTBAn', '馒头', 1.00, 12, 'https://picsum.photos/200/300,https://picsum.photos/200/300,https://picsum.photos/200/300', '刚出炉的香喷喷馒头哦~', 't93aQfee3c6A0c4t42C');
 
 -- password: Admin123#
 insert into t_user(user_id, nickname, phone_number, username, password) values('MYTkr30TXL0CCxo9gDe', '鲁卡', '13055228822', 'luca', '88db605e4b8f31c14e1bc0be5d191bad');

@@ -8,6 +8,6 @@ public interface ProductDao {
 
     List<Product> queryProductBy(Integer pageNum, Integer pageSize, String searchTerm);
 
-    Integer getProductTotal();
+    Integer getProductTotal(String search);
 
 }

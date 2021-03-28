@@ -45,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
                 .collect(Collectors.joining(","));
         List<Category> categories = categoryDao.queryCategoriesByIdIn(categoryIds);
 
-        Integer productTotal = productDao.getProductTotal();
+        Integer productTotal = productDao.getProductTotal(search);
 
         Map<String, List<ProductDTO>> menuProducts = products
                 .stream()
@@ -78,7 +78,6 @@ public class ProductServiceImpl implements ProductService {
                         .build())
                 .collect(Collectors.toList());
 
-        // filter map 操作
         return MenuDTO
                 .builder()
                 .categories(menuCategories)
