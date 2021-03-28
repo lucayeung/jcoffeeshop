@@ -9,9 +9,11 @@ import com.luca.jcoffeeshop.dto.MenuCategoryDTO;
 import com.luca.jcoffeeshop.dto.MenuDTO;
 import com.luca.jcoffeeshop.dto.ProductDTO;
 import com.luca.jcoffeeshop.query.AddProductQuery;
+import com.luca.jcoffeeshop.util.IdUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.Collections;
@@ -87,7 +89,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional // 两个数据库操作以上
     public void addProduct(AddProductQuery addProductQuery) {
-
+        Product product = Product.builder()
+                .productId(IdUtils.shortUUID())
+                .name(addProductQuery.getName())
+                .categoryId(addProductQuery.getCategoryId())
+                .description(addProductQuery.getDescription())
+                .stock(addProductQuery.getStock())
+                .price(addProductQuery.getPrice())
+                .imgUrls(addProductQuery.getImages())
+                .build();
+        productDao.addProduct(product);
     }
 }

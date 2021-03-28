@@ -49,4 +49,19 @@ public class JdbcProductDao implements ProductDao {
         SqlParameterSource params = new MapSqlParameterSource("search", "%" + search + "%");
         return namedParameterJdbcTemplate.queryForObject(sql, params, Integer.class);
     }
+
+    @Override
+    public void addProduct(Product product) {
+        String sql = "insert into t_product(product_id, name, price, stock, image_urls, description, category_id) " +
+                "values(:productId, :name, :price, :stock, :imageUrls, :description, :categoryId)";
+        Map<String, Object> params = new HashMap<>();
+        params.put("productId", product.getProductId());
+        params.put("name", product.getName());
+        params.put("price", product.getPrice());
+        params.put("stock", product.getStock());
+        params.put("imageUrls", product.getImgUrls());
+        params.put("description", product.getDescription());
+        params.put("categoryId", product.getCategoryId());
+        namedParameterJdbcTemplate.update(sql, params);
+    }
 }

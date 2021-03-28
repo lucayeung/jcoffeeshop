@@ -3,12 +3,11 @@ package com.luca.jcoffeeshop.api;
 import com.luca.jcoffeeshop.biz.ProductService;
 import com.luca.jcoffeeshop.dto.MenuDTO;
 import com.luca.jcoffeeshop.dto.ResponseResult;
+import com.luca.jcoffeeshop.query.AddProductQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("product")
@@ -26,7 +25,9 @@ public class ProductController {
         return new ResponseResult("成功", 200, menu);
     }
 
-    public ResponseResult addProduct() {
+    @PostMapping
+    public ResponseResult addProduct(@RequestBody @Validated AddProductQuery addProductQuery) {
+        productService.addProduct(addProductQuery);
         return new ResponseResult("添加商品成功", 200);
     }
 }

@@ -47,7 +47,7 @@ public class Product {
      * 解析商品图片拼接路径
      */
     public List<String> getImages() {
-        if (StringUtils.hasText(imgUrls)) {
+        if (!StringUtils.hasText(imgUrls)) {
             return Collections.emptyList();
         }
 

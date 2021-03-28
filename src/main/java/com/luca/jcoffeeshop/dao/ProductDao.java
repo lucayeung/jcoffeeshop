@@ -10,4 +10,5 @@ public interface ProductDao {
 
     Integer getProductTotal(String search);
 
+    void addProduct(Product product);
 }
