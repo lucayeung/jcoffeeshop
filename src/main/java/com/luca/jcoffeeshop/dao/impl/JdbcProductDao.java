@@ -3,7 +3,6 @@ package com.luca.jcoffeeshop.dao.impl;
 import com.luca.jcoffeeshop.DO.Product;
 import com.luca.jcoffeeshop.dao.ProductDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -19,9 +18,6 @@ public class JdbcProductDao implements ProductDao {
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
 
     @Override
     public List<Product> queryProductBy(Integer pageNum, Integer pageSize, String searchTerm) {

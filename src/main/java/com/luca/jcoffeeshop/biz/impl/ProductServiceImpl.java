@@ -1,7 +1,8 @@
-package com.luca.jcoffeeshop.biz;
+package com.luca.jcoffeeshop.biz.impl;
 
 import com.luca.jcoffeeshop.DO.Category;
 import com.luca.jcoffeeshop.DO.Product;
+import com.luca.jcoffeeshop.biz.ProductService;
 import com.luca.jcoffeeshop.dao.CategoryDao;
 import com.luca.jcoffeeshop.dao.ProductDao;
 import com.luca.jcoffeeshop.dto.MenuCategoryDTO;

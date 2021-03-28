@@ -2,6 +2,7 @@ package com.luca.jcoffeeshop.DO;
 
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -46,7 +47,7 @@ public class Product {
      * 解析商品图片拼接路径
      */
     public List<String> getImages() {
-        if (imgUrls.isEmpty()) { // is blank guava
+        if (StringUtils.hasText(imgUrls)) {
             return Collections.emptyList();
         }
 
