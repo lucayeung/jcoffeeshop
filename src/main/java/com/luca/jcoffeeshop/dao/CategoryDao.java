@@ -13,4 +13,6 @@ public interface CategoryDao {
     List<CategoryDetail> getAllCategoryDetails();
 
     void addCategory(Category category);
+
+    List<Category> queryCategoriesByIdIn(String categoryIds);
 }

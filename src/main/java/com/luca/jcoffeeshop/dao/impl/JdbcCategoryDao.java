@@ -36,6 +36,7 @@ public class JdbcCategoryDao implements CategoryDao {
 
     @Override
     public List<CategoryDetail> getAllCategoryDetails() {
+        // todo is_del
         String sql = "select c.name, c.category_id, " +
                 "count(p.product_id) as product_type_count, " +
                 "sum(p.stock) as product_total_stock " +
@@ -61,5 +62,22 @@ public class JdbcCategoryDao implements CategoryDao {
         params.put("name", category.getName());
         params.put("description", category.getDescription());
         namedParameterJdbcTemplate.update(sql, params);
+    }
+
+    @Override
+    public List<Category> queryCategoriesByIdIn(String categoryIds) {
+        String sql = "select category_id, name, description, create_time, update_time from t_category " +
+                "where category_id in ("+ categoryIds +") and is_del = 0";
+        RowMapper<Category> rowMapper = (rs, rowNum) -> Category
+                .builder()
+                .categoryId(rs.getString("category_id"))
+                .name(rs.getString("name"))
+                .description(rs.getString("description"))
+                .createTime(rs.getDate("create_time"))
+                .updateTime(rs.getDate("update_time"))
+                .build();
+//        SqlParameterSource params = new MapSqlParameterSource("ids", categoryIds);
+//        return namedParameterJdbcTemplate.query(sql, params, rowMapper);
+        return namedParameterJdbcTemplate.query(sql, rowMapper);
     }
 }

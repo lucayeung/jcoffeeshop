@@ -1,5 +1,8 @@
 package com.luca.jcoffeeshop.DO;
 
+import lombok.Builder;
+import lombok.Data;
+
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
@@ -9,6 +12,8 @@ import java.util.List;
 /**
  * 商品 Data Object
  */
+@Data
+@Builder
 public class Product {
 
     private Long id;
