@@ -11,4 +11,9 @@ public interface ProductDao {
     Integer getProductTotal(String search);
 
     void addProduct(Product product);
+
+    List<Product> queryProductsByIds(List<String> productIds);
+
+    Product getProductById(String productId);
+
 }

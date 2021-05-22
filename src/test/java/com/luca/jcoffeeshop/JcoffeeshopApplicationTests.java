@@ -26,6 +26,11 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/MockMvc.html
+ * https://spring.io/guides/gs/testing-web/
+ * https://www.parasoft.com/love-spring-testing-even-more-with-mocking-and-unit-test-assistant/
+ */
 @WebMvcTest(ProductController.class)
 class JcoffeeshopApplicationTests {
 

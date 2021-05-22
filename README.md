@@ -1,30 +1,314 @@
 # jcoffeeshop
 
-## 功能概述
+# 📚 目录
 
-### 类目模块
+TODO
 
-- [ ] 新增类目
-- [ ] 类目列表
+# 🧪 功能概述
 
-### 商品模块
+系统一种有五大模块：
 
-- [ ] 新增商品
-- [ ] 菜单 (按类目划分商品)
+1. 类目模块
+2. 商品模块
+3. 用户模块
+4. 购物车模块
+5. 订单模块
 
-### 用户模块
+## 类目模块
 
-- [ ] 注册
-- [ ] 登录
+### 1. 新增类目
 
-### 购物车模块
+🚀 API路径：`POST /api/category`
 
-- [ ] 我的购物车
-- [ ] 添加商品
-- [ ] 移除商品
-- [ ] 清空购物车
+📥 HTTP请求数据模型：
 
-### 订单模块
+```json
+{
+  "name": "炸鸡🍗",
+  "description": "好吃不上火哦～"
+}
+```
+
+📤 HTTP响应数据模型：
+
+```json
+{
+  "message": "添加类目成功",
+  "code": 200
+}
+```
+
+### 2. 类目列表
+
+🚀 API路径：`GET /api/category/categories`
+
+📤 HTTP响应数据模型：
+
+```json
+{
+  "message": "类目查询成功",
+  "code": 200,
+  "data": [
+    {
+      "categoryId": "hQ5qC8ex3uJzJgwk7FK",
+      "name": "饮品",
+      "description": "咖啡、奶茶、牛奶🥛等",
+      "productTypeCount": 3,
+      "productCount": 181
+    },
+    {
+      "categoryId": "t93aQfee3c6A0c4t42C",
+      "name": "糕点",
+      "description": "沙琪玛、蔓越莓堡等",
+      "productTypeCount": 4,
+      "productCount": 46
+    }
+  ]
+}
+```
+
+## 商品模块
+
+### 1.新增商品
+
+🚀 API路径：`POST /api/product`
+
+📥 HTTP请求数据模型：
+
+```json
+{
+  "name": "汉堡🍔",
+  "description": "厚甲的汉堡哦",
+  "price": 26.00,
+  "stock": 110,
+  "categoryId": "t93aQfee3c6A0c4t42C",
+  "imgUrls": [
+    "https://picsum.photos/200/300",
+    "https://picsum.photos/200/300"
+  ]
+}
+```
+
+📤 HTTP响应数据模型：
+
+```json
+{
+  "message": "添加商品成功",
+  "code": 200
+}
+```
+
+### 2.菜单
+
+🚀 API路径：`GET /api/product/menu?search=咖啡&page=1&size=2`
+
+📤 HTTP响应数据模型：
+
+```json
+{
+  "message": "成功",
+  "code": 200,
+  "data": {
+    "categories": [
+      {
+        "categoryId": "hQ5qC8ex3uJzJgwk7FK",
+        "name": "饮品",
+        "description": "咖啡、奶茶、牛奶🥛等",
+        "createTime": "2021-05-22",
+        "products": [
+          {
+            "productId": "RLW1hI2CRXsyy4x1Q4f",
+            "categoryId": "hQ5qC8ex3uJzJgwk7FK",
+            "name": "抹茶咖啡",
+            "price": 22,
+            "stock": 99,
+            "imgUrls": [
+              "https://picsum.photos/200/300",
+              "https://picsum.photos/200/300",
+              "https://picsum.photos/200/300"
+            ],
+            "description": "抹茶搭配香浓咖啡！",
+            "createTime": "2021-05-22",
+            "updateTime": "2021-05-22"
+          },
+          {
+            "productId": "ieQLGVdTSHhKBTNZ9AD",
+            "categoryId": "hQ5qC8ex3uJzJgwk7FK",
+            "name": "红茶咖啡",
+            "price": 20,
+            "stock": 66,
+            "imgUrls": [
+              "https://picsum.photos/200/300",
+              "https://picsum.photos/200/300",
+              "https://picsum.photos/200/300"
+            ],
+            "description": "红茶搭配香浓咖啡！",
+            "createTime": "2021-05-22",
+            "updateTime": "2021-05-22"
+          }
+        ]
+      }
+    ],
+    "total": 2
+  }
+}
+```
+
+## 用户模块
+
+### 1.注册
+
+🚀 API路径：`POST /api/user/sign-up`
+
+📥 HTTP请求数据模型：
+
+```json
+{
+  "nickname": "Bruce",
+  "username": "bruce",
+  "password": "Bruce123#",
+  "phoneNumber": "13000000000"
+}
+```
+
+📤 HTTP响应数据模型：
+
+```json
+{
+    "message": "注册成功",
+    "code": 200
+}
+```
+
+### 2.登录
+
+🚀 API路径：`POST /api/user/sign-in`
+
+📥 HTTP请求数据模型：
+
+```json
+{
+    "username": "luca",
+    "password": "Luca123#"
+}
+```
+
+📤 HTTP响应数据模型：
+
+```json
+{
+    "message": "登录成功",
+    "code": 200,
+    "data": {
+        "userId": "MYTkr30TXL0CCxo9gDe",
+        "nickname": "鲁卡",
+        "username": "luca",
+        "phoneNumber": "13000000000",
+        "signUpTime": "2021-05-22T13:22:16.884+00:00"
+    }
+}
+```
+
+## 购物车模块
+
+### 1.我的购物车
+
+🚀 API路径：`GET /api/cart/my-cart`
+
+📤 HTTP响应数据模型：
+
+```json
+{
+  "message": "查询成功",
+  "code": 200,
+  "data": {
+    "items": [
+      {
+        "productId": "uFlmIxTTBAnX8rREjZn",
+        "name": "包子",
+        "price": 2,
+        "imgUrls": "https://picsum.photos/200/300,https://picsum.photos/200/300,https://picsum.photos/200/300",
+        "description": "刚出炉的香喷喷包子哦~",
+        "categoryName": "糕点",
+        "count": 5,
+        "totalPrice": 10
+      },
+      {
+        "productId": "uX8rREjZnFlmIxTTBAn",
+        "name": "紫薯面包",
+        "price": 10,
+        "imgUrls": "https://picsum.photos/200/300,https://picsum.photos/200/300,https://picsum.photos/200/300",
+        "description": "刚出炉的香喷喷紫薯哦~",
+        "categoryName": "糕点",
+        "count": 10,
+        "totalPrice": 100
+      }
+    ],
+    "count": 2,
+    "total": 110
+  }
+}
+```
+
+### 2.添加商品到购物车
+
+🚀 API路径：`POST /api/cart/add`
+
+📥 HTTP请求数据模型：
+
+```json
+{
+  "productId": "uX8rREjZnFlmIxTTBAn",
+  "count": 2
+}
+```
+
+📤 HTTP响应数据模型：
+
+```json
+{
+  "message": "操作成功",
+  "code": 200
+}
+```
+
+### 3.移除购物车的商品
+
+🚀 API路径：`DELETE /api/cart/remove`
+
+📥 HTTP请求数据模型：
+
+```json
+{
+  "productId": "uX8rREjZnFlmIxTTBAn",
+  "count": 3,
+  "evict": false
+}
+```
+
+📤 HTTP响应数据模型：
+
+```json
+{
+  "message": "操作成功",
+  "code": 200
+}
+```
+
+### 4.清空购物车
+
+🚀 API路径：`DELETE /api/cart/clear`
+
+📤 HTTP响应数据模型：
+
+```json
+{
+  "message": "操作成功",
+  "code": 200
+}
+```
+
+## 订单模块
 
 - [ ] 我的订单
 - [ ] 确认订单
@@ -33,7 +317,7 @@
 - [ ] 确认收货
 - [ ] 退款
 
-## 数据模型
+## 🦕 数据模型
 
 ### 🗄 类目
 
@@ -104,7 +388,7 @@ create table t_cart_item (
 );
 ```
 
-### 📝 订单
+### 🧾 订单
 
 ```sql
 create table t_order (
@@ -119,7 +403,7 @@ create table t_order (
 );
 ```
 
-## TODO
+# 📝 TODO
 
 1. 添加Spock单元测试依赖
 2. 添加接口文档

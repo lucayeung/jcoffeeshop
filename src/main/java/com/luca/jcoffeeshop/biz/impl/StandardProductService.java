@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service("standardProductService")
-public class ProductServiceImpl implements ProductService {
+public class StandardProductService implements ProductService {
 
     @Autowired
     @Qualifier("jdbcProductDao")
@@ -40,13 +40,11 @@ public class ProductServiceImpl implements ProductService {
         }
         List<Product> products = productDao.queryProductBy(pageNum, pageSize, search);
 
-        String categoryIds = products
+        List<String> categoryIds = products
                 .stream()
-                .map(product -> String.format("'%s'", product.getCategoryId()))
-//                .map(Product::getCategoryId)
-                .distinct()
-                .collect(Collectors.joining(","));
-        List<Category> categories = categoryDao.queryCategoriesByIdIn(categoryIds);
+                .map(Product::getCategoryId)
+                .collect(Collectors.toList());
+        List<Category> categories = categoryDao.queryCategoriesByIds(categoryIds);
 
         Integer productTotal = productDao.getProductTotal(search);
 

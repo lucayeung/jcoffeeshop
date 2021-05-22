@@ -16,7 +16,7 @@ import java.util.List;
 public class CategoryController {
 
     @Autowired
-    @Qualifier("standardCategory")
+    @Qualifier("standardCategoryService")
     private CategoryService categoryService;
 
     @GetMapping("categories")

@@ -3,10 +3,10 @@ package com.luca.jcoffeeshop.biz.impl;
 import com.luca.jcoffeeshop.DO.User;
 import com.luca.jcoffeeshop.biz.UserService;
 import com.luca.jcoffeeshop.dao.UserDao;
-import com.luca.jcoffeeshop.query.LoginQuery;
 import com.luca.jcoffeeshop.dto.LoginUserDTO;
-import com.luca.jcoffeeshop.query.SignUpQuery;
 import com.luca.jcoffeeshop.error.BizException;
+import com.luca.jcoffeeshop.query.LoginQuery;
+import com.luca.jcoffeeshop.query.SignUpQuery;
 import com.luca.jcoffeeshop.util.IdUtils;
 import com.luca.jcoffeeshop.util.PasswordUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -74,6 +74,11 @@ public class StandardUserService implements UserService {
                 .build();
     }
 
+    /**
+     * 加密用户密码
+     * @param rawPassword 用户密码
+     * @return 加密后的密码
+     */
     private String convertMd5Password(String rawPassword) {
         String md5Password;
         try {

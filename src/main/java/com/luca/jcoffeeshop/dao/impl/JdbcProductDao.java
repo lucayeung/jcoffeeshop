@@ -3,6 +3,7 @@ package com.luca.jcoffeeshop.dao.impl;
 import com.luca.jcoffeeshop.DO.Product;
 import com.luca.jcoffeeshop.dao.ProductDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Repository("jdbcProductDao")
 public class JdbcProductDao implements ProductDao {
@@ -24,23 +26,11 @@ public class JdbcProductDao implements ProductDao {
         String sql = "select product_id, name, price, stock, image_urls, description, category_id, " +
                 "create_time, update_time from t_product where is_del = 0 and name like :search " +
                 "limit :size offset :page";
-        RowMapper<Product> rowMapper = (rs, rowNum) -> Product
-                .builder()
-                .productId(rs.getString("product_id"))
-                .name(rs.getString("name"))
-                .price(rs.getBigDecimal("price"))
-                .stock(rs.getInt("stock"))
-                .imgUrls(rs.getString("image_urls"))
-                .description(rs.getString("description"))
-                .categoryId(rs.getString("category_id"))
-                .createTime(rs.getDate("create_time"))
-                .updateTime(rs.getDate("update_time"))
-                .build();
         Map<String, Object> params = new HashMap<>();
         params.put("page", pageSize * (pageNum - 1));
         params.put("size", pageSize);
         params.put("search", "%" + searchTerm + "%");
-        return namedParameterJdbcTemplate.query(sql, params, rowMapper);
+        return namedParameterJdbcTemplate.query(sql, params, productRowMapper());
     }
 
     @Override
@@ -63,5 +53,51 @@ public class JdbcProductDao implements ProductDao {
         params.put("description", product.getDescription());
         params.put("categoryId", product.getCategoryId());
         namedParameterJdbcTemplate.update(sql, params);
+    }
+
+    @Override
+    public List<Product> queryProductsByIds(List<String> productIds) {
+        String inClause = productIds
+                .stream()
+                .distinct()
+                .map(productId -> String.format("'%s'", productId))
+                .collect(Collectors.joining(","));
+        String sql = "select product_id, name, price, stock, image_urls, description, category_id, " +
+                "create_time, update_time from t_product where product_id in (" + inClause + ") and is_del = 0";
+        return namedParameterJdbcTemplate.query(sql, productRowMapper());
+    }
+
+    @Override
+    public Product getProductById(String productId) {
+        String sql = "select product_id, name, price, stock, image_urls, description, category_id, " +
+                "create_time, update_time from t_product where product_id = :productId and is_del = 0";
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("productId", productId);
+
+        Product product;
+        try {
+            product = namedParameterJdbcTemplate.queryForObject(sql, params, productRowMapper());
+        }
+        catch (EmptyResultDataAccessException ex) {
+            // 商品不存在或已被删除
+            return null;
+        }
+        return product;
+    }
+
+    private RowMapper<Product> productRowMapper() {
+        return (rs, rowNum) -> Product
+                .builder()
+                .productId(rs.getString("product_id"))
+                .name(rs.getString("name"))
+                .price(rs.getBigDecimal("price"))
+                .stock(rs.getInt("stock"))
+                .imgUrls(rs.getString("image_urls"))
+                .description(rs.getString("description"))
+                .categoryId(rs.getString("category_id"))
+                .createTime(rs.getDate("create_time"))
+                .updateTime(rs.getDate("update_time"))
+                .build();
     }
 }

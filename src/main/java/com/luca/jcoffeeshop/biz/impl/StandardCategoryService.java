@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service("standardCategory")
+@Service("standardCategoryService")
 public class StandardCategoryService implements CategoryService {
 
     @Autowired
@@ -33,9 +33,6 @@ public class StandardCategoryService implements CategoryService {
         List<CategoryDTO> categories = categoryDao.getAllCategories();
         for (CategoryDTO categoryDTO : categories) {
             CategoryDetail categoryDetail = queryTable.get(categoryDTO.getCategoryId());
-            if (categoryDetail == null) { // 测试是否能够覆盖
-                continue;
-            }
             categoryDTO.setProductTypeCount(categoryDetail.getProductTypeCount());
             categoryDTO.setProductCount(categoryDetail.getProductTotalStock());
         }

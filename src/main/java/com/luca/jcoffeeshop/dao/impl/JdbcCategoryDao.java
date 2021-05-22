@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Repository("jdbcCategoryDao")
 public class JdbcCategoryDao implements CategoryDao {
@@ -65,9 +66,14 @@ public class JdbcCategoryDao implements CategoryDao {
     }
 
     @Override
-    public List<Category> queryCategoriesByIdIn(String categoryIds) {
+    public List<Category> queryCategoriesByIds(List<String> categoryIds) {
+        String inClause = categoryIds
+                .stream()
+                .distinct()
+                .map(categoryId -> String.format("'%s'", categoryId))
+                .collect(Collectors.joining(","));
         String sql = "select category_id, name, description, create_time, update_time from t_category " +
-                "where category_id in ("+ categoryIds +") and is_del = 0";
+                "where category_id in ("+ inClause +") and is_del = 0";
         RowMapper<Category> rowMapper = (rs, rowNum) -> Category
                 .builder()
                 .categoryId(rs.getString("category_id"))

@@ -14,5 +14,6 @@ public interface CategoryDao {
 
     void addCategory(Category category);
 
-    List<Category> queryCategoriesByIdIn(String categoryIds);
+    List<Category> queryCategoriesByIds(List<String> categoryIds);
+
 }
