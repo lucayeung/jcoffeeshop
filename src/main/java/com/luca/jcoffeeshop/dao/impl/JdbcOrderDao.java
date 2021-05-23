@@ -24,7 +24,7 @@ public class JdbcOrderDao implements OrderDao {
     @Override
     public void addOrder(Order order) {
         String sql = "insert into t_order(order_id, user_id, details, total, count, status) " +
-                "values(:orderId, :details, :total, :count, :status)";
+                "values(:orderId, :userId, :details, :total, :count, :status)";
         Map<String, Object> params = new HashMap<>();
         params.put("orderId", order.getOrderId());
         params.put("userId", order.getUserId());
@@ -57,7 +57,7 @@ public class JdbcOrderDao implements OrderDao {
 
     @Override
     public Order getOrderByUserIdAndOrderId(String userId, String orderId) {
-        String sql = "select order_id, details, total, count, status, create_time, update_time from t_order " +
+        String sql = "select order_id, user_id, details, total, count, status, create_time, update_time from t_order " +
                 "where user_id = :userId and order_id = :orderId and is_del = 0";
 
         Map<String, String> params = new HashMap<>();
@@ -95,8 +95,8 @@ public class JdbcOrderDao implements OrderDao {
     @Override
     public List<Order> getOrdersByUserId(String userId) {
         // 按订单状态、创建日期排序，支持自定义排序、筛选
-        String sql = "select order_id, details, total, count, status, create_time, update_time from t_order " +
-                "where user_id = :userId and is_del = 0 order by status des, update_time desc";
+        String sql = "select order_id, user_id, details, total, count, status, create_time, update_time from t_order " +
+                "where user_id = :userId and is_del = 0 order by status desc, update_time desc";
 
         Map<String, String> params = new HashMap<>();
         params.put("userId", userId);
@@ -112,21 +112,18 @@ public class JdbcOrderDao implements OrderDao {
     }
 
     @Override
-    public List<OrderItem> getOrderItemsByOrderIdAndUserId(List<String> orderIds, String userId) {
+    public List<OrderItem> getOrderItemsByOrderId(List<String> orderIds) {
         String inClause = orderIds
                 .stream()
                 .map(orderId -> String.format("'%s'", orderId))
                 .collect(Collectors.joining(","));
         String sql = "select order_item_id, order_id, product_id, product_price, " +
                 "count, order_item_price, create_time, update_time from t_order_item " +
-                "where order_id in (" + inClause + ") and user_id = :userId and  is_del = 0";
-
-        Map<String, String> params = new HashMap<>();
-        params.put("userId", userId);
+                "where order_id in (" + inClause + ") and  is_del = 0";
 
         List<OrderItem> orderItems;
         try {
-            orderItems = namedParameterJdbcTemplate.query(sql, params, orderItemRowMapper());
+            orderItems = namedParameterJdbcTemplate.query(sql, orderItemRowMapper());
         }
         catch (EmptyResultDataAccessException ex) {
             return Collections.emptyList();

@@ -15,7 +15,7 @@ public interface OrderDao {
 
     List<Order> getOrdersByUserId(String userId);
 
-    List<OrderItem> getOrderItemsByOrderIdAndUserId(List<String> orderIds, String userId);
+    List<OrderItem> getOrderItemsByOrderId(List<String> orderIds);
 
     void updateOrder(Order order);
 

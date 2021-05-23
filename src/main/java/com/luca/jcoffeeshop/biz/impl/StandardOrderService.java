@@ -84,6 +84,7 @@ public class StandardOrderService implements OrderService {
 
             OrderItem orderItem = OrderItem
                     .builder()
+                    .orderId(order.getOrderId())
                     .orderItemId(IdUtils.shortUUID())
                     .orderItemPrice(cartItemVo.getTotalPrice())
                     .productId(cartItemVo.getProductId())
@@ -147,7 +148,7 @@ public class StandardOrderService implements OrderService {
             orderIds.add(order.getOrderId());
         }
         // 订单关联项
-        List<OrderItem> orderItems = orderDao.getOrderItemsByOrderIdAndUserId(orderIds, userId);
+        List<OrderItem> orderItems = orderDao.getOrderItemsByOrderId(orderIds);
         List<String> productIds = orderItems
                 .stream()
                 .map(OrderItem::getProductId)
@@ -169,7 +170,7 @@ public class StandardOrderService implements OrderService {
         for (Order order : orders) {
             List<OrderItem> items = orderItemTable.getOrDefault(order.getOrderId(), Collections.emptyList());
             List<OrderItemVo> orderItemVoList = mapToOrderItemVo(items);
-            batchSetProductNameOfOrderItemVo(orderItemVoList, productQueryTable);
+            batchSetProductOfOrderItemVo(orderItemVoList, productQueryTable);
 
             UserExpress userExpress;
             try {
@@ -232,11 +233,15 @@ public class StandardOrderService implements OrderService {
         orderDao.updateOrder(order);
     }
 
-    private void batchSetProductNameOfOrderItemVo(List<OrderItemVo> OrderItemVoList,
+    private void batchSetProductOfOrderItemVo(List<OrderItemVo> OrderItemVoList,
             Map<String, Product> productQueryTable) {
         for (OrderItemVo orderItemVo : OrderItemVoList) {
             Product product = productQueryTable.get(orderItemVo.getProductId());
+            if (product == null) {
+                continue;
+            }
             orderItemVo.setProductName(product.getName());
+            orderItemVo.setProductPrice(product.getPrice());
         }
     }
 

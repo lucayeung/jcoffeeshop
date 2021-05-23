@@ -332,12 +332,151 @@ TODO
             --------------> 已取消（退款）        
 ```
 
-- [x] 我的订单
-- [x] 确认订单
-- [x] 付款
-- [x] 查询订单状态
-- [x] 发货
-- [x] 确认收货
+### 1.我的订单
+
+🚀 API路径：`DELETE /api/order/my-orders`
+
+📤 HTTP响应数据模型：
+
+```json
+{
+  "message": "操作成功",
+  "code": 200,
+  "data": [
+    {
+      "orderId": "sl65ggyo6cl2",
+      "address": "湾区",
+      "phoneNumber": "13000000000",
+      "name": "Luca",
+      "total": 9,
+      "orderStatus": "UNPAID",
+      "createTime": "2021-05-23",
+      "updateTime": "2021-05-23",
+      "orderItems": [
+        {
+          "orderItemId": "u87yexh7absi",
+          "productId": "YPQKZk0RXsosm4FRjRZ",
+          "productName": "芬达",
+          "productPrice": 5,
+          "orderItemPrice": 5,
+          "count": 1
+        },
+        {
+          "orderItemId": "r1fm8qmuhyzn",
+          "productId": "uFlmIxTTBAnX8rREjZn",
+          "productName": "包子",
+          "productPrice": 2,
+          "orderItemPrice": 4,
+          "count": 2
+        }
+      ]
+    },
+    {
+      "orderId": "s1dwkcqnhcft",
+      "address": "湾区",
+      "phoneNumber": "13000000000",
+      "name": "Luca",
+      "total": 20,
+      "orderStatus": "UNPAID",
+      "createTime": "2021-05-23",
+      "updateTime": "2021-05-23",
+      "orderItems": [
+        {
+          "orderItemId": "ts4pjh4qvtk2",
+          "productId": "uX8rREjZnFlmIxTTBAn",
+          "productName": "紫薯面包",
+          "productPrice": 10,
+          "orderItemPrice": 20,
+          "count": 2
+        }
+      ]
+    }
+  ]
+}
+```
+
+### 2.确认订单
+
+🚀 API路径：`POST /api/order/confirm-order`
+
+📥 HTTP请求数据模型：
+
+```json
+{
+    "name": "Luca",
+    "phoneNumber": "13000000000",
+    "address": "湾区"
+}
+```
+
+📤 HTTP响应数据模型：
+
+```json
+{
+    "message": "操作成功",
+    "code": 200
+}
+```
+
+### 3.付款
+
+🚀 API路径：`POST /api/order/pay/{orderId}`
+
+📤 HTTP响应数据模型：
+
+```json
+{
+    "message": "操作成功",
+    "code": 200
+}
+```
+
+### 4.查询订单状态
+
+🚀 API路径：`GET /api/order/status/{orderId}`
+
+📤 HTTP响应数据模型：
+
+```json
+{
+    "message": "查询成功",
+    "code": 200,
+    "data": {
+        "orderId": "skmqkmr1kxfd",
+        "status": "UNPAID",
+        "createTime": "2021-05-23"
+    }
+}
+```
+
+### 5.发货
+
+🚀 API路径：`POST /api/order/receipt/{orderId}`
+
+📤 HTTP响应数据模型：
+
+```json
+{
+    "message": "操作成功",
+    "code": 200
+}
+```
+
+### 6.确认收货
+
+🚀 API路径：`POST /api/order/seller/ship/{orderId}`
+
+📤 HTTP响应数据模型：
+
+```json
+{
+    "message": "操作成功",
+    "code": 200
+}
+```
+
+### 7.待实现
+
 - [ ] 发起退款
 - [ ] 确认退款
 - [ ] 订单超时检查
