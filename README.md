@@ -324,12 +324,14 @@ TODO
             --------------> 已取消（退款）        
 ```
 
-- [ ] 我的订单
-- [ ] 确认订单
-- [ ] 付款
-- [ ] 发货
-- [ ] 确认收货
-- [ ] 退款
+- [x] 我的订单
+- [x] 确认订单
+- [x] 付款
+- [x] 查询订单状态
+- [x] 发货
+- [x] 确认收货
+- [ ] 发起退款
+- [ ] 确认退款
 - [ ] 订单超时检查
 
 # 🦕 数据模型
@@ -409,12 +411,33 @@ create table t_cart_item (
 create table t_order (
     id int not null auto_increment,
     order_id char(64) not null comment '订单唯一标识',
-    details text not null comment '订单明细包括收货地址、手机号、收货人、商品id、数目等',
+    user_id char(64) not null comment '用户标识',
+    details text not null comment '订单明细包括收货地址、手机号、收货人等',
+    total bigint not null comment '订单总计',
+    count int not null default 0 comment '商品数目',
     status tinyint(4) null default null comment '订单状态 0-? 1-?',
     create_time timestamp not null default current_timestamp,
     update_time timestamp not null default current_timestamp on update current_timestamp,
     is_del tinyint(1) not null default 0,
     primary key (id)
+);
+```
+
+## 🗃 订单项
+
+```sql
+create table t_order_item (
+  id int not null auto_increment,
+  order_item_id char(64) not null comment '订单项目唯一标识',
+  order_id char(64) not null comment '属于哪个订单',
+  product_id char(64) not null comment '商品ID',
+  product_price char(64) not null comment '商品价格',
+  count int not null comment '数目',
+  order_item_price bigint not null comment '订单项价格',
+  create_time timestamp not null default current_timestamp,
+  update_time timestamp not null default current_timestamp on update current_timestamp,
+  is_del tinyint(1) not null default 0,
+  primary key (id)
 );
 ```
 

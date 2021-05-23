@@ -16,4 +16,6 @@ public interface ProductDao {
 
     Product getProductById(String productId);
 
+    void batchUpdate(List<Product> products);
+
 }

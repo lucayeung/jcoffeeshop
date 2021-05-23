@@ -1,40 +1,54 @@
 package com.luca.jcoffeeshop.enums;
 
+import lombok.Getter;
+
+import java.util.Arrays;
+import java.util.Optional;
+
+@Getter
 public enum OrderStatus {
 
     /**
      * 未支付
      */
-    UNPAID,
+    UNPAID(0),
 
     /**
-     * 已过期
+     * 已关闭
      */
-    EXPIRED,
+    CLOSED(1),
 
     /**
      * 已取消
      */
-    CANCEL,
+    CANCEL(2),
 
     /**
      * 已支付
      */
-    PAID,
+    PAID(3),
 
     /**
-     * 已退款
+     * 已发货
      */
-    REFUNDED,
+    SHIPPED(4),
 
     /**
-     * 配送中
+     * 已完成
      */
-    SHIPPED,
-
-    /**
-     * 已送达
-     */
-    RECEIPT,
+    FINISHED(5),
     ;
+
+    final int value;
+
+    OrderStatus(int value) {
+        this.value = value;
+    }
+
+    public static Optional<OrderStatus> valueOf(int value) {
+        return Arrays.stream(values())
+                .filter(status -> status.value == value)
+                .findFirst();
+    }
+
 }

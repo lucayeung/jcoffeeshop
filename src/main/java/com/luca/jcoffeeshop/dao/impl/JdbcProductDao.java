@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,6 +85,20 @@ public class JdbcProductDao implements ProductDao {
             return null;
         }
         return product;
+    }
+
+    @Override
+    public void batchUpdate(List<Product> products) {
+        // 按需扩展字段...
+        String sql = "update t_product set stock = :stock where product_id = :productId and is_del = 0";
+        List<SqlParameterSource> sources = new ArrayList<>();
+        for (Product product : products) {
+            MapSqlParameterSource source = new MapSqlParameterSource();
+            source.addValue("stock", product.getStock());
+            source.addValue("productId", product.getProductId());
+            sources.add(source);
+        }
+        namedParameterJdbcTemplate.batchUpdate(sql, sources.toArray(new SqlParameterSource[0]));
     }
 
     private RowMapper<Product> productRowMapper() {
