@@ -231,7 +231,11 @@ TODO
         "productId": "uFlmIxTTBAnX8rREjZn",
         "name": "包子",
         "price": 2,
-        "imgUrls": "https://picsum.photos/200/300,https://picsum.photos/200/300,https://picsum.photos/200/300",
+        "imgUrls": [
+          "https://picsum.photos/200/300",
+          "https://picsum.photos/200/300",
+          "https://picsum.photos/200/300"
+        ],
         "description": "刚出炉的香喷喷包子哦~",
         "categoryName": "糕点",
         "count": 5,
@@ -241,7 +245,11 @@ TODO
         "productId": "uX8rREjZnFlmIxTTBAn",
         "name": "紫薯面包",
         "price": 10,
-        "imgUrls": "https://picsum.photos/200/300,https://picsum.photos/200/300,https://picsum.photos/200/300",
+        "imgUrls": [
+          "https://picsum.photos/200/300",
+          "https://picsum.photos/200/300",
+          "https://picsum.photos/200/300"
+        ],
         "description": "刚出炉的香喷喷紫薯哦~",
         "categoryName": "糕点",
         "count": 10,

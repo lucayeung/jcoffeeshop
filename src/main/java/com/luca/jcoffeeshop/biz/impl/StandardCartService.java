@@ -98,7 +98,7 @@ public class StandardCartService implements CartService {
                     .productId(product.getProductId())
                     .name(product.getName())
                     .price(product.getPrice())
-                    .imgUrls(product.getImgUrls())
+                    .imgUrls(product.getImages())
                     .description(product.getDescription())
                     .categoryName(category.getName())
                     .count(cartItem.getCount())

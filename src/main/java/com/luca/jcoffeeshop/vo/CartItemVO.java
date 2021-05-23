@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @Builder
@@ -18,7 +19,7 @@ public class CartItemVO {
      */
     private BigDecimal price;
 
-    private String imgUrls;
+    private List<String> imgUrls;
 
     private String description;
 
