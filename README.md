@@ -21,7 +21,7 @@
 - [🛠 Get Started](#-get-started)
 - [🧪 Usage](#-usage)
 - [🦕 Data Model](#-data-model)
-- [📝 Todo List](#-todo)
+- [📝 Todo List](#-todo-list)
 
 <!-- /code_chunk_output -->
 
