@@ -1,16 +1,49 @@
-# jcoffeeshop
+<div align="center">
+  <h1>
+    ☕️ 🏪
+    <br>
+    Jcoffeeshop
+  </h1>
 
-# 📚 目录
+![](https://badgen.net/github/last-commit/lucayeung/jcoffeeshop)
+![](https://badgen.net/github/commits/lucayeung/jcoffeeshop)
+![](https://badgen.net/github/license/lucayeung/jcoffeeshop)
+![](https://badgen.net/github/dependents-repo/lucayeung/jcoffeeshop)
 
-TODO
+</div>
+
+<details>
+  <summary>Table of contents</summary>
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+- [🛠 Get Started](#-get-started)
+- [🧪 Usage](#-usage)
+- [🦕 Data Model](#-data-model)
+- [📝 Todo List](#-todo)
+
+<!-- /code_chunk_output -->
+
+</details>
 
 #  🛠 Get Started
 
-TODO
+使用`local_deploy.sh`脚本在本地docker运行app
 
-# 🧪 功能概述
+要求：
+1. 安装Maven
+2. 安装Docker
 
-系统一种有五大模块：
+```sh
+chmod +w local_deploy.sh
+
+./local_deploy.sh
+```
+
+# 🧪 Usage
+
+App由5个模块组成：
 
 1. 类目模块
 2. 商品模块
@@ -481,7 +514,7 @@ TODO
 - [ ] 确认退款
 - [ ] 订单超时检查
 
-# 🦕 数据模型
+# 🦕 Data Model
 
 ## 🗄 类目
 
@@ -588,9 +621,9 @@ create table t_order_item (
 );
 ```
 
-# 📝 TODO
+# 📝 Todo List
 
-1. 添加Spock单元测试依赖
-2. 添加接口文档
-3. 参考阿里巴巴分层领域模型规约: DO DTO AO VO Query
-4. 建立数据库索引
+- [x] 参考阿里巴巴分层领域模型规约: DO DTO AO VO Query
+- [ ] 单元测试覆盖
+- [ ] 添加接口文档
+- [ ] 恰当地建立数据库索引
