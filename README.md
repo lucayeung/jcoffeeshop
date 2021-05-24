@@ -36,7 +36,7 @@
 2. 安装Docker
 
 ```sh
-chmod +w local_deploy.sh
+chmod +x local_deploy.sh
 
 ./local_deploy.sh
 ```

@@ -245,7 +245,7 @@ public class StandardOrderService implements OrderService {
         }
     }
 
-    public List<OrderItemVo> mapToOrderItemVo(List<OrderItem> orderItems) {
+    private List<OrderItemVo> mapToOrderItemVo(List<OrderItem> orderItems) {
         List<OrderItemVo> orderItemVoList = new ArrayList<>();
         for (OrderItem orderItem : orderItems) {
             OrderItemVo orderItemVo = OrderItemVo
