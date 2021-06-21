@@ -27,7 +27,7 @@
 
 </details>
 
-通过写简单sql（查询单表、简单join），将逻辑放在应用层，这样业务逻辑会更清晰，而且在应用层（内存）实现特定的join也容易得多。很多高性能的应用都会对关联查询进行分解。简单地，可以对每个表进行一次单表查询，然后将结果在应用程序中进行关联。关于分解关联查询的优势更多细节可参考《高性能Mysql》中的 6.3.3 节。
+通过写简单sql（查询单表、简单join），将逻辑放在应用层，这样业务逻辑会更清晰，方便后续维护。而且在应用层（内存）实现特定的join也容易得多。很多高性能的应用都会对关联查询进行分解。简单地，可以对每个表进行一次单表查询，然后将结果在应用程序中进行关联。关于分解关联查询的优势更多细节可参考《高性能Mysql》中的 6.3.3 节。
 
 参考：[CartService](https://github.com/lucayeung/jcoffeeshop/blob/master/src/main/java/com/luca/jcoffeeshop/biz/impl/StandardCartService.java)、[OrderService](https://github.com/lucayeung/jcoffeeshop/blob/master/src/main/java/com/luca/jcoffeeshop/biz/impl/StandardOrderService.java) 等。
 
